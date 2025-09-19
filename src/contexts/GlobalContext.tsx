@@ -5,11 +5,13 @@ type GlobalContextProps = {
     children: React.ReactNode
 }
 
-const GlobalContext = createContext<GlobalContextType | null>(null);
+export const GlobalContext = createContext<GlobalContextType | null>(null);
 
-const GlobalProvider = ({ children }: GlobalContextProps) => {
+export const GlobalProvider = ({ children }: GlobalContextProps) => {
 
-    <GlobalContext.Provider value={ }>
-        {children}
-    </GlobalContext.Provider>
+    return (
+        <GlobalContext.Provider value={{}}>
+            {children}
+        </GlobalContext.Provider>
+    )
 }
