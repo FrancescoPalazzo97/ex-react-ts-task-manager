@@ -1,0 +1,50 @@
+/* Firefox-specific styles */
+@-moz-document url-prefix() {
+    select option {
+        background-color: #334155 !important; /* slate-700 */
+        color: #e2e8f0 !important; /* slate-200 */
+        font-size: 14px !important;
+    }
+
+    select option:checked {
+        background-color: #1e3a8a !important; /* blue-800 */
+        color: white !important;
+    }
+
+    select option:hover {
+        background-color: #475569 !important; /* slate-600 */
+    }
+}
+
+/* Chrome/Webkit specific styles */
+@supports (-webkit-appearance: none) {
+    select:not(:-moz-any()) {
+        -webkit-appearance: none;
+        appearance: none;
+        color-scheme: dark;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='1.5'%3e%3cpath d='m6 9 6 6 6-6'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 16px center;
+        background-size: 20px;
+        padding-right: 48px;
+    }
+
+    /* Force Chrome to use dark theme for dropdown */
+    select:not(:-moz-any()) option {
+        background: #334155 !important;
+        color: #e2e8f0 !important;
+        font-size: 14px !important;
+    }
+
+    select:not(:-moz-any()) option:checked {
+        background: #1e3a8a !important;
+        background-color: #1e3a8a !important;
+        color: white !important;
+    }
+
+    /* Additional Chrome-specific forcing */
+    select:not(:-moz-any()) {
+        background-color: #334155 !important;
+        color: #e2e8f0 !important;
+    }
+}

@@ -14,7 +14,7 @@ export const GlobalContext = createContext<GlobalContextType | null>(null);
 
 export const GlobalProvider = ({ children }: GlobalContextProps) => {
 
-    const tasks = useTasks();
+    const { tasks } = useTasks();
 
     const value = {
         tasks

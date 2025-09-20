@@ -28,7 +28,24 @@ const useTasks = () => {
         getTasks();
     }, []);
 
-    return tasks
+    const addTask = (task: TaskType): void => {
+        console.log('Aggiungi task')
+    };
+
+    const removeTask = (taskId: TaskType['id']): void => {
+        console.log('Rimuovi task')
+    };
+
+    const updateTask = (newTask: TaskType): void => {
+        console.log('Aggiorna task')
+    }
+
+    return {
+        tasks,
+        addTask,
+        removeTask,
+        updateTask
+    }
 }
 
 export default useTasks

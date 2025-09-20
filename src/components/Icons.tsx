@@ -54,12 +54,34 @@ const PlusCircleIcon = () => (
     </svg >
 );
 
+const ChevronDownIcon = () => (
+    <svg {...defaultSvgProps} className="size-4 text-slate-400">
+        <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="m19.5 8.25-7.5 7.5-7.5-7.5"
+        />
+    </svg>
+);
+
+const ChevronUpIcon = () => (
+    <svg {...defaultSvgProps} className="size-4 text-slate-400">
+        <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="m4.5 15.75 7.5-7.5 7.5 7.5"
+        />
+    </svg>
+);
+
 type IconsProps = {
     icon:
     | 'stack'
     | 'clipboard'
     | 'calendar'
     | 'plusCircle'
+    | 'chevronDown'
+    | 'chevronUp'
 }
 
 type ReturnType = JSX.Element | null;
@@ -69,7 +91,9 @@ const Icons = ({ icon }: IconsProps): ReturnType => {
         stack: <StackIcon />,
         clipboard: <ClipboardIcon />,
         calendar: <CalendarIcon />,
-        plusCircle: <PlusCircleIcon />
+        plusCircle: <PlusCircleIcon />,
+        chevronDown: <ChevronDownIcon />,
+        chevronUp: <ChevronUpIcon />
     }), []);
 
     return icons[icon] || null;
