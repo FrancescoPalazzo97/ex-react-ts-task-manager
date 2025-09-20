@@ -9,13 +9,17 @@ const Header = () => {
                         <NavLink
                             to='/'
                             className='hover:brightness-150'
-                        >Lista Tasks</NavLink>
+                        >
+                            Lista Tasks
+                        </NavLink>
                     </li>
                     <li>
                         <NavLink
                             to='/add-task'
                             className='hover:brightness-150'
-                        >Aggiungi Task</NavLink>
+                        >
+                            Aggiungi Task
+                        </NavLink>
                     </li>
                 </ul>
             </nav>
