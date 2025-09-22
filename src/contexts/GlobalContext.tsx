@@ -1,6 +1,6 @@
-import { createContext } from "react";
-import { useTasks } from "../hooks";
-import type { GlobalContextType } from "../types";
+import { createContext, useState } from "react";
+import { useTasks, useModal } from "../hooks";
+import type { GlobalContextType, ModalType, ModalPropsType } from "../types";
 
 type GlobalContextProps = {
     children: React.ReactNode
@@ -12,9 +12,26 @@ export const GlobalProvider = ({ children }: GlobalContextProps) => {
 
     const { tasks, addTask } = useTasks();
 
+    const [showModal, setShowModal] = useState(false);
+
+    const [modalProps, setModalProps] = useModal();
+
+    const launchModal = (data: ModalPropsType) => {
+        setModalProps(data);
+        setShowModal(true);
+    }
+
+    const closeModal = () => {
+        setShowModal(false);
+    }
+
     const value = {
         tasks,
-        addTask
+        addTask,
+        showModal,
+        modalProps,
+        launchModal,
+        closeModal
     }
 
     return (

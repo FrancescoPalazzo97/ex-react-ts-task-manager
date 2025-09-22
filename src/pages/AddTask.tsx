@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
-import { Icons, Modal } from "../components";
+import { Icons } from "../components";
 import { guardType, launchError } from "../lib";
-import { useGlobalContext, useModal } from "../hooks";
+import { useGlobalContext } from "../hooks";
 import "../styles/select-options.css";
 
 import type { FormDataType, ErrorFormType } from "../types";
@@ -13,13 +13,10 @@ const symbols = `!@#$%^&*()-_=+[]{}|;:'\\",.<>?/\`~`;
 const AddTask = () => {
   const [title, setTitle] = useState<string>("");
   const [error, setError] = useState(initialValue);
-  const [showModal, setShowModal] = useState(false);
   const bioRef = useRef<HTMLInputElement>(null);
   const selectRef = useRef<HTMLSelectElement>(null);
 
-  const [modalProps, setModalProps] = useModal();
-
-  const { addTask } = useGlobalContext();
+  const { addTask, launchModal } = useGlobalContext();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setError(initialValue);
@@ -30,14 +27,18 @@ const AddTask = () => {
       : setError({ ...error, title: `Non è possibile aggiungere caratteri speciali` });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
+      if (!title.trim()) throw new Error(`Il campo "Nome Task" non può essere vuoto!`);
+
+      if (!guardType.isStatusValid(selectRef.current?.value)) throw new Error('Stato non valido! Si prega di inserire uno stato valido');
+
       if (
         bioRef.current &&
         selectRef.current?.value &&
-        guardType.isStatusValid(selectRef.current.value)
+        guardType.isStatusType(selectRef.current.value)
       ) {
         const formData: FormDataType = {
           title,
@@ -45,24 +46,17 @@ const AddTask = () => {
           status: selectRef.current.value,
         };
 
-        addTask(formData);
-        setModalProps({ type: 'ADD', title: 'Task Aggiunto', content: `Il task "${title}" è stato aggiunto!` })
-        setShowModal(true)
-      } else {
-        throw new Error('Stato non valido! Si prega di inserire uno stato valido');
+        await addTask(formData);
+        launchModal({ type: "ADD", title: 'Task aggiunto', content: `Il task "${title}" è stato aggiunto!` })
+
       }
     } catch (e) {
-      e instanceof Error ? launchError(e) : launchError();
+      e instanceof Error ? launchModal({ type: "ERROR", title: 'Errore', content: e.message }) : launchModal({ type: "ERROR", title: 'Errore', content: 'Errore Generico' });
     }
   };
 
   return (
     <div className="max-w-[1400px] mx-auto px-6 py-8">
-      <Modal
-        {...modalProps}
-        show={showModal}
-        onClose={() => setShowModal(false)}
-      />
       <div className="mb-8">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-300 text-center mb-2">
           Aggiungi task
