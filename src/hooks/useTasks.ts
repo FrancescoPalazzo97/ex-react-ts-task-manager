@@ -33,11 +33,11 @@ const useTasks = () => {
 
         const data = await useFetch(`${API_URL}/tasks`, 'POST', task);
 
-        if ( guardType.isErrorData(data)) {
+        if (guardType.isErrorData(data)) {
             throw new Error(data.messagge);
         } else if (guardType.isSuccessData(data)) {
             setTasks(prev => [...prev, data.task]);
-        }  
+        }
     };
 
     const removeTask = (taskId: TaskType['id']): void => {

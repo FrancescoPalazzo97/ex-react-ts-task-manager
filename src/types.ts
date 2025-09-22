@@ -16,18 +16,20 @@ export type ErrorFormType = Omit<FormDataType, "status"> & {
 };
 
 type ResponseBase = {
-    success: boolean
+  success: boolean
 }
 
 export type SuccessType = ResponseBase & {
-    task: TaskType
+  task: TaskType
 }
 
 export type ErrorType = ResponseBase & {
-    messagge: string;
+  messagge: string;
 }
 
 export type GlobalContextType = {
-    tasks: TaskType[],
-    addTask: (task: FormDataType) => Promise<void>
+  tasks: TaskType[],
+  addTask: (task: FormDataType) => Promise<void>
 };
+
+export type ModalType = 'DEFAULT' | 'ADD' | 'DELETE' | 'MODIFY' | 'ERROR';

@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
-import { Icons } from "../components";
+import { Icons, Modal } from "../components";
 import { guardType, launchError } from "../lib";
-import { useGlobalContext } from "../hooks";
+import { useGlobalContext, useModal } from "../hooks";
 import "../styles/select-options.css";
 
 import type { FormDataType, ErrorFormType } from "../types";
@@ -13,24 +13,21 @@ const symbols = `!@#$%^&*()-_=+[]{}|;:'\\",.<>?/\`~`;
 const AddTask = () => {
   const [title, setTitle] = useState<string>("");
   const [error, setError] = useState(initialValue);
+  const [showModal, setShowModal] = useState(false);
   const bioRef = useRef<HTMLInputElement>(null);
   const selectRef = useRef<HTMLSelectElement>(null);
+
+  const [modalProps, setModalProps] = useModal();
 
   const { addTask } = useGlobalContext();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setError(initialValue);
-    if (!e.target.value.trim())
-      setError({ ...error, title: "Aggiungi un titolo" });
-    const titleIsValid = ![...e.target.value].some((char) =>
-      symbols.includes(char)
-    );
+    if (!e.target.value.trim()) setError({ ...error, title: "Aggiungi un titolo" });
+    const titleIsValid = ![...e.target.value].some((char) => symbols.includes(char));
     titleIsValid
       ? setTitle(e.target.value)
-      : setError({
-        ...error,
-        title: `Non è possibile aggiungere caratteri speciali`,
-      });
+      : setError({ ...error, title: `Non è possibile aggiungere caratteri speciali` });
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -49,6 +46,8 @@ const AddTask = () => {
         };
 
         addTask(formData);
+        setModalProps({ type: 'ADD', title: 'Task Aggiunto', content: `Il task "${title}" è stato aggiunto!` })
+        setShowModal(true)
       } else {
         throw new Error('Stato non valido! Si prega di inserire uno stato valido');
       }
@@ -59,6 +58,11 @@ const AddTask = () => {
 
   return (
     <div className="max-w-[1400px] mx-auto px-6 py-8">
+      <Modal
+        {...modalProps}
+        show={showModal}
+        onClose={() => setShowModal(false)}
+      />
       <div className="mb-8">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-300 text-center mb-2">
           Aggiungi task
