@@ -1,6 +1,6 @@
-import type { TaskType } from "../types";
+import type { FormDataType } from "../types";
 
-export default async function useFetch(URL: string, method?: string, obj?: TaskType): Promise<unknown> {
+export default async function useFetch(URL: string, method?: string, obj?: FormDataType): Promise<unknown> {
     let methodObj = {};
 
     switch (method) {
