@@ -20,6 +20,10 @@ function isTask(data: unknown): boolean {
   );
 }
 
+function isTaskValid(data: unknown): data is TaskType {
+  return isTask(data);
+}
+
 function isTasksArray(data: unknown): data is TaskType[] {
   return (
     data !== null && Array.isArray(data) && data.every((item) => isTask(item))
@@ -52,6 +56,7 @@ function isErrorData(data: unknown): data is ErrorType {
 
 export default {
   isTask,
+  isTaskValid,
   isTasksArray,
   isStatusValid,
   isStatusType,

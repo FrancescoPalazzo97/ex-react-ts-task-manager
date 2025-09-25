@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import DefaultLayout from "./layout/DefaultLayout"
-import { AddTask, TaskList } from "./pages"
+import { AddTask, TaskList, TaskDetails } from "./pages"
 
 function App() {
   return (
@@ -9,6 +9,7 @@ function App() {
         <Route Component={DefaultLayout}>
           <Route index Component={TaskList} />
           <Route path="/add-task" Component={AddTask} />
+          <Route path="/tasks/:id" Component={TaskDetails} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { Icons } from "../components";
-import { guardType, launchError } from "../lib";
+import { guardType } from "../lib";
 import { useGlobalContext } from "../hooks";
 import "../styles/select-options.css";
 

@@ -2,6 +2,7 @@ import { memo } from "react";
 import type { TaskType } from "../types"
 import { useDate } from "../hooks";
 import StatusLabel from "./StatusLabel";
+import { Link } from "react-router-dom";
 
 type TaskRowProps = {
     task: TaskType
@@ -9,15 +10,17 @@ type TaskRowProps = {
 
 const TaskRow = memo(({ task }: TaskRowProps) => {
 
-    const { title, status, createdAt } = task;
+    const { id, title, status, createdAt } = task;
 
     return (
         <tr className='hover:bg-slate-700/40 transition-all duration-300 group border-b border-slate-700/30 last:border-b-0'>
             <td className='px-4 sm:px-6 md:px-8 py-6'>
-                <div className='flex items-center space-x-4'>
-                    <div className='w-3 h-3 bg-gradient-to-r from-emerald-400 to-blue-500 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-lg shadow-blue-500/30 group-hover:scale-110'></div>
-                    <span className='text-slate-100 font-semibold text-base tracking-wide group-hover:text-white transition-colors duration-300'>{title}</span>
-                </div>
+                <Link to={`/tasks/${id}`}>
+                    <div className='flex items-center space-x-4'>
+                        <div className='w-3 h-3 bg-gradient-to-r from-emerald-400 to-blue-500 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-lg shadow-blue-500/30 group-hover:scale-110'></div>
+                        <span className='text-slate-100 font-semibold text-base tracking-wide group-hover:text-white transition-colors duration-300'>{title}</span>
+                    </div>
+                </Link>
             </td>
             <td className='px-4 sm:px-6 md:px-8 py-6'>
                 <StatusLabel status={status} />

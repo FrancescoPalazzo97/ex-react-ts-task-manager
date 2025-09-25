@@ -32,6 +32,6 @@ export default async function useFetch(URL: string, method?: string, obj?: FormD
     }
 
     const res = await fetch(URL, methodObj);
-    if (!res.ok) throw new Error('Errore nel recupero dei dati!')
+    if (!res.ok) throw new Error('Errore nel recupero dei dati!');
     return await res.json();
 }
